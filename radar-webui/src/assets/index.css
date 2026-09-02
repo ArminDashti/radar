@@ -1,0 +1,37 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%; --foreground: 240 5% 10%;
+    --card: 0 0% 100%; --card-foreground: 240 5% 10%;
+    --primary: 240 5% 26%; --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 96%; --secondary-foreground: 240 5% 10%;
+    --muted: 240 5% 96%; --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 96%; --accent-foreground: 240 5% 10%;
+    --border: 240 6% 90%; --input: 240 6% 90%; --ring: 240 5% 34%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 240 6% 6%; --foreground: 0 0% 96%;
+    --card: 240 5% 9%; --card-foreground: 0 0% 96%;
+    --primary: 0 0% 92%; --primary-foreground: 240 6% 8%;
+    --secondary: 240 4% 16%; --secondary-foreground: 0 0% 96%;
+    --muted: 240 4% 16%; --muted-foreground: 240 5% 64%;
+    --accent: 240 4% 16%; --accent-foreground: 0 0% 96%;
+    --border: 240 4% 18%; --input: 240 4% 18%; --ring: 0 0% 72%;
+  }
+  * { @apply border-border; }
+  html, body, #app { height: 100%; margin: 0; }
+  body { @apply bg-background font-sans text-foreground antialiased; }
+  input, select { @apply rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring; }
+  input[type='checkbox'] { @apply h-4 w-4 accent-primary; }
+}
+
+.latency-scroll { scrollbar-gutter: stable; overscroll-behavior: contain; }

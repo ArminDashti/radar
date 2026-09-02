@@ -1,0 +1,9 @@
+# Latency Grid
+
+`LatencyGrid.vue` renders API buckets as a single-line strip of fixed-size squares with 1px gaps, left-aligned (`flex-nowrap`). Square size stays at the user preference; the grid measures strip width, emits a `capacity` count, and Hosts/Probes re-fetch with `?window=<capacity>` so the API returns enough buckets to fill the row edge-to-edge (capped at 720). When the strip is still wider than the available space, that row scrolls horizontally. The label column width follows the longest visible row name; squares start after a spacer of five square widths so Minutes / Hours / Days / Months share the same pixel size and the same horizontal origin. Host rows show each endpoint `logo_icon`; probe rows show the probe flag. There is no time header; hover shows 24-hour time and latency. Failed samples show a red X; missing samples show a faint empty square so every bucket slot is visible.
+
+`src/lib/latency.ts` owns interval types, square size limits (9–32 px, default 12, step 2), `bucketCapacity()`, 24-hour bucket labels, and threshold colors. `src/lib/squareSize.ts` keeps one user preference in `localStorage` (`radar-latency-square-size`) so Minutes / Hours / Days / Months share the same pixel size (no width-based growth). FilterBar exposes − / + controls; the grid applies size through `--sq-size`.
+
+On-demand host Test lives on Admin → Hosts only (`POST /api/hosts/:id/test`), not on the Hosts latency grid. Admin is split into `/admin/hosts` and `/admin/probes`, with a shared Database stats card (`GET /api/admin/stats`).
+
+Hosts and Probes views fetch their grid independently and poll while mounted. Both use boxed rows. The Hosts view averages checked probes per square and filters visible rows by checked hosts. Grid labels use the host **name** (brand), while the link target uses the domain/`host` field.
